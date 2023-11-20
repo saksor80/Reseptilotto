@@ -8,10 +8,12 @@ using System.Xml;
 using System;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
 
 namespace Reseptilotto.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors(origins: "http://localhost:53569/api/resepti", headers: "*", methods: "*")]
     public class ReseptiController : Controller
     {
 
