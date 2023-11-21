@@ -21,6 +21,20 @@ namespace Reseptilotto
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ReseptiContext>(opt => opt.UseInMemoryDatabase("InputList"));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services
                 .AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
@@ -40,6 +54,7 @@ namespace Reseptilotto
             }
 
             app.UseStaticFiles();
+            app.UseCors("AllowAll");
 
             app.UseMvc(routes =>
             {
